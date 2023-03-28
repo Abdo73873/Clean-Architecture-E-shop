@@ -5,6 +5,7 @@ import 'package:mena/data/responses/responses.dart';
 abstract class RemoteDataSource{
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
 }
+
 class RemoteDataSourceImplementation implements RemoteDataSource{
   final AppServicesClient _appServicesClient;
   RemoteDataSourceImplementation(this._appServicesClient);
