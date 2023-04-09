@@ -1,4 +1,4 @@
-abstract class LoginRequest{
+ class LoginRequest{
   String email;
   String password;
 
