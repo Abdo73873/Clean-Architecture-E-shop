@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mena/persentation/forget_password/forget_password_view.dart';
-import 'package:mena/persentation/login/login_view.dart';
 import 'package:mena/persentation/main/main_view.dart';
 import 'package:mena/persentation/onBoarding/view/onBoarding_view.dart';
 import 'package:mena/persentation/register/register_view.dart';
 import 'package:mena/persentation/resources/strings_manager.dart';
 import 'package:mena/persentation/splash/splash_view.dart';
 
+import '../login/view/login_view.dart';
 import '../store_details/store_details_view.dart';
 
 class Routes{
