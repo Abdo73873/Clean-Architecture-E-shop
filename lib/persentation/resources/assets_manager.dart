@@ -1,4 +1,5 @@
 const String imagePath='assets/images';
+const String jsonPath='assets/json';
 class ImagesManager{
   static const String splashLogo='$imagePath/splash_logo.png';
   static const String onBoardingLogo1='$imagePath/onboarding_logo1.svg';
@@ -13,5 +14,12 @@ class ImagesManager{
   static const String hollowCircleIc='$imagePath/hollow_cirlce_ic.svg';
   static const String solidCircleIc='$imagePath/solid_circle_ic.svg';
   static const String nviteFriendsIc='$imagePath/nvite_friends_ic.svg';
+
+}
+class JsonManager{
+  static const String loading='$jsonPath/loading.json';
+  static const String error='$jsonPath/error.json';
+  static const String empty='$jsonPath/empty.json';
+  static const String success='$jsonPath/success.json';
 
 }

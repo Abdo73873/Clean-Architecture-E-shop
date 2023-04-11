@@ -22,7 +22,8 @@ dependencies:
   shared_preferences: ^2.1.0
   freezed: ^2.3.2
   get_it: ^7.2.0
-  
+  lottie: ^2.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -45,6 +46,11 @@ flutter:
   - assets/images/invite_friends_ic.svg
   - assets/images/logout_ic.svg
   - assets/images/photo_camera_ic.svg
+  - assets/json/loadin.json
+  - assets/json/error.json
+  - assets/json/empty.json
+  - assets/json/success.json
+  -
   fonts:
   - family: Montserrat
     fonts:
