@@ -6,7 +6,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const String APPLICATION_JSON="application/json";
 const String COTENT_TYPE="content-type";
-const String ACCEPT="accept";
+const String ACCEPT="Accept";
 const String AUTHORIZATION="authorization";
 const String DEFAULT_LANGUAGUE="language";
 
@@ -18,15 +18,15 @@ DioFactory(this._appPreferences);
     Dio dio=Dio();
     String language=await _appPreferences.getAppLanguage();
     Map<String,String> headers={
-      APPLICATION_JSON:APPLICATION_JSON,
-      ACCEPT:ACCEPT,
-      COTENT_TYPE:COTENT_TYPE,
+      ACCEPT:APPLICATION_JSON,
+      COTENT_TYPE:APPLICATION_JSON,
       AUTHORIZATION:Constants.apiToken,
       DEFAULT_LANGUAGUE:language, //todo get language from app refs
     };
     dio.options=BaseOptions(
       baseUrl: Constants.baseUrl,
       headers: headers,
+      connectTimeout:const Duration(seconds: Constants.apiTimeOut),
       receiveTimeout: const Duration(seconds: Constants.apiTimeOut),
       sendTimeout: const Duration(seconds: Constants.apiTimeOut),
     );
@@ -35,6 +35,9 @@ DioFactory(this._appPreferences);
         requestHeader:true,
         requestBody: true,
         responseHeader: true,
+        error: true,
+        responseBody: true,
+        request: true,
       ));
     }
     return dio;

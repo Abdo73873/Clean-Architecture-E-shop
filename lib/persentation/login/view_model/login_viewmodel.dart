@@ -50,14 +50,14 @@ class LoginViewModel extends BaseViewModel
   @override
   setPassword(String password) {
     inputPassword.add(password);
-    loginObject = loginObject.copyWith(passwrd: password);
+    loginObject = loginObject.copyWith(password: password);
     inputAreAllInputsValid.add(null);
   }
 
   @override
   login() async {
     (await _loginUseCase
-            .execute(LoginUseCaseInput(loginObject.email, loginObject.passwrd)))
+            .execute(LoginUseCaseInput(loginObject.email, loginObject.password)))
         .fold((failure) => {print(failure.message)},
             (data) => {print(data.customer?.name)});
   }
@@ -85,7 +85,7 @@ class LoginViewModel extends BaseViewModel
   }
 
   bool _areAllInputsValidS() {
-    return _isEmailValid(loginObject.email)&&_isPasswordValid(loginObject.passwrd);
+    return _isEmailValid(loginObject.email)&&_isPasswordValid(loginObject.password);
   }
 }
 
