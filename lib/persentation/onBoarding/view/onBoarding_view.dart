@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mena/app/app_prefs.dart';
+import 'package:mena/app/di.dart';
 import 'package:mena/domain/model/models.dart';
 import 'package:mena/persentation/onBoarding/viewmodel/onBoarding_viewmodel.dart';
 import 'package:mena/persentation/resources/assets_manager.dart';
@@ -21,6 +23,7 @@ class OnBoardingView extends StatefulWidget {
 class _OnBoardingViewState extends State<OnBoardingView> {
   final OnBoardingViewModel _viewModel=OnBoardingViewModel();
   void _bind(){
+    instance<AppPreferences>().setOnBoardingScreenViewed();
     _viewModel.start();
   }
   @override

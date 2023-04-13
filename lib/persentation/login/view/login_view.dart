@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mena/app/di.dart';
 import 'package:mena/domain/repository/repository.dart';
 import 'package:mena/domain/usecase/login_usecase.dart';
@@ -8,6 +9,7 @@ import 'package:mena/persentation/resources/assets_manager.dart';
 import 'package:mena/persentation/resources/strings_manager.dart';
 import 'package:mena/persentation/resources/values_manager.dart';
 
+import '../../../app/app_prefs.dart';
 import '../../resources/routes_manger.dart';
 
 class LoginView extends StatefulWidget {
@@ -32,6 +34,14 @@ class _LoginViewState extends State<LoginView> {
         .addListener(() => _viewModel.setEmail(_emailController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
+    _viewModel.isLoginSuccessfullyStreamController.stream.listen((isLoggedIn) {
+      if(isLoggedIn){
+        instance<AppPreferences>().setUserLoggedIn();
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushReplacementNamed(context, Routes.mainRoute);
+        });
+      }
+    });
   }
 
   @override

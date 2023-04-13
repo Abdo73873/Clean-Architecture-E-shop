@@ -5,6 +5,8 @@ import 'package:mena/persentation/resources/assets_manager.dart';
 import 'package:mena/persentation/resources/color_manager.dart';
 import 'package:mena/persentation/resources/constant_manager.dart';
 
+import '../../app/app_prefs.dart';
+import '../../app/di.dart';
 import '../resources/routes_manger.dart';
 
 class SplashView extends StatefulWidget {
@@ -21,25 +23,45 @@ class _SplashViewState extends State<SplashView> {
     _timer = Timer(const Duration(seconds: AppConstants.splashDelay), _goNext);
   }
 
-    _goNext(){
-      Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
-    }
-    @override
+  _goNext() {
+    instance<AppPreferences>().getUserLoggedIn().then((isLoggedIn) {
+      if (isLoggedIn) {
+        Navigator.pushReplacementNamed(context, Routes.mainRoute);
+      }
+      else {
+        instance<AppPreferences>()
+            .getOnBoardingScreenViewed()
+            .then((isOnBoardingViewed) {
+          if (isOnBoardingViewed) {
+            Navigator.pushReplacementNamed(context, Routes.loginRoute);
+          } else {
+            Navigator.pushReplacementNamed(context, Routes.onBoardingRoute);
+          }
+        });
+      }
+    });
+  }
+
+  @override
   void initState() {
     super.initState();
     _startDelay();
   }
+
   @override
   void dispose() {
-  _timer?.cancel();
-  super.dispose();
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       backgroundColor: ColorManager.primary,
-      body: Center(child: Image(image: AssetImage(ImagesManager.splashLogo),)),
+      body: Center(
+          child: Image(
+        image: AssetImage(ImagesManager.splashLogo),
+      )),
     );
   }
 }
