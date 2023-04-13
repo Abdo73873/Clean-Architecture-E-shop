@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:mena/domain/model/models.dart';
 import 'package:mena/domain/usecase/login_usecase.dart';
 import 'package:mena/persentation/base/base_viewmodel.dart';
+import 'package:mena/persentation/common/state_renderer/state_renderer.dart';
+import 'package:mena/persentation/common/state_renderer/state_renderer_imp.dart';
 
 import '../../common/freezed_data_classes.dart';
 
@@ -21,6 +23,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   void dispose() {
+    super.dispose();
     _emailStreamController.close();
     _passwordStreamController.close();
     _areAllInputsValidStreamController.close();
@@ -28,7 +31,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   void start() {
-    // TODO: implement start
+    inputState.add(ContentState());
   }
 
   @override
@@ -56,10 +59,15 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() async {
+    inputState.add(LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     (await _loginUseCase
             .execute(LoginUseCaseInput(loginObject.email, loginObject.password)))
-        .fold((failure) => {print(failure.message)},
-            (data) => {print(data.customer?.name)});
+        .fold((failure) => {
+    inputState.add(ErrorState(StateRendererType.popupErrorState,failure.message))
+    },
+       (data) => {
+              inputState.add(ContentState())
+        });
   }
 
   //output

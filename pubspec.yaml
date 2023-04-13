@@ -46,7 +46,7 @@ flutter:
   - assets/images/invite_friends_ic.svg
   - assets/images/logout_ic.svg
   - assets/images/photo_camera_ic.svg
-  - assets/json/loadin.json
+  - assets/json/loading.json
   - assets/json/error.json
   - assets/json/empty.json
   - assets/json/success.json

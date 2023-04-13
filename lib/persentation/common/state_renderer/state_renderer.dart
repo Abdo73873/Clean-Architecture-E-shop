@@ -44,9 +44,12 @@ class StateRenderer extends StatelessWidget {
   Widget _getStateWidget(context) {
     switch (stateRendererType) {
       case StateRendererType.popupLoadingState:
-       return _getPopUpDialog([_getAnimatedImage(JsonManager.loading)]);
+        return _getPopUpDialog([
+          _getAnimatedImage(JsonManager.loading),
+          _getMessage('Loading...')
+        ]);
       case StateRendererType.popupErrorState:
-       return _getPopUpDialog([
+        return _getPopUpDialog([
           _getAnimatedImage(JsonManager.error),
           _getMessage(message),
           _getRetryButton(context, AppStrings.retryAgain),
@@ -91,11 +94,21 @@ class StateRenderer extends StatelessWidget {
         ),
       );
 
-  Widget _getDialogContent(List<Widget> children) => _getItemsColumn(children);
+  Widget _getDialogContent(List<Widget> children) =>
+      _getItemsColumn(children, mainAxisSize: MainAxisSize.min);
 
-  Widget _getItemsColumn(List<Widget> children) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+  Widget _getItemsColumn(List<Widget> children,
+          {MainAxisSize mainAxisSize = MainAxisSize.max}) =>
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(AppPadding.p18),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: mainAxisSize,
+            children: children,
+          ),
+        ),
       );
 
   Widget _getAnimatedImage(String animationName) => SizedBox(
