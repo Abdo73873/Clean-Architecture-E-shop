@@ -15,7 +15,6 @@ class AppStrings {
       'Tut app is an awesome flutter application using architecture #4';
   static const String skip='Skip';
   static const String email='Email';
-  static const String emailError='Please Enter your email';
   static const String password='password';
   static const String forgetPassword='forget password';
   static const String passwordError='Please Enter your password';
@@ -26,4 +25,8 @@ class AppStrings {
   static const String ok='OK';
   static const String send='Send';
   static const String success='Success';
+  static const String userNameInvalid='"user Name should be at least 8 chars"';
+  static const String emailInvalid="Email format is wrong";
+  static const String passwordInvalid="password should be at least 8 chars";
+  static const String mobileInvalid="Mobile Number should be at least 11 chars";
 }

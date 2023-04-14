@@ -5,6 +5,8 @@ import 'package:mena/persentation/base/base_viewmodel.dart';
 import 'package:mena/persentation/common/state_renderer/state_renderer.dart';
 import 'package:mena/persentation/common/state_renderer/state_renderer_imp.dart';
 
+import '../../../app/functions.dart';
+
 class ForgetPasswordViewModel extends BaseViewModel
     with ForgetPasswordViewModelInputs, ForgetPasswordViewModelOutputs {
   final StreamController _emailStreamController=StreamController<String>.broadcast();
@@ -26,11 +28,8 @@ class ForgetPasswordViewModel extends BaseViewModel
   Sink get inputEmail => _emailStreamController.sink;
 
   @override
-  Stream<bool> get outIsEmailValid => _emailStreamController.stream.map((email) => _isEmailValid(email));
+  Stream<bool> get outIsEmailValid => _emailStreamController.stream.map((email) => isEmailValid(email));
 
-  bool _isEmailValid(String email){
-    return email.isNotEmpty;
-  }
 
   @override
   forgetPassword() async {

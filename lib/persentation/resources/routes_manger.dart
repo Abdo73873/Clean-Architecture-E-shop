@@ -3,7 +3,7 @@ import 'package:mena/app/di.dart';
 import 'package:mena/persentation/forget_password/view/forget_password_view.dart';
 import 'package:mena/persentation/main/main_view.dart';
 import 'package:mena/persentation/onBoarding/view/onBoarding_view.dart';
-import 'package:mena/persentation/register/register_view.dart';
+import 'package:mena/persentation/register/view/register_view.dart';
 import 'package:mena/persentation/resources/strings_manager.dart';
 import 'package:mena/persentation/splash/splash_view.dart';
 
