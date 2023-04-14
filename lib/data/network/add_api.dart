@@ -13,4 +13,7 @@ factory AppServicesClient(Dio dio,{String baseUrl})=_AppServicesClient;
     @Field("email") String email,
     @Field("password") String password,
     );
+@POST('/customer/forgetPassword')
+Future<ForgotPasswordResponse> forgetPassword(@Field("email") String email);
+
 }

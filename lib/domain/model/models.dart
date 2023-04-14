@@ -14,8 +14,6 @@ class SliderViewObject{
   SliderViewObject(this.sliderObject, this.numOfSlides, this.currentIndex);
 }
 
-
-
 class Customer{
   String id;
   String name;
@@ -38,3 +36,11 @@ class Authentication {
 
 
 }
+/*
+class ForgetPassword{
+  int status;
+  String message;
+  String support;
+
+  ForgetPassword(this.status, this.message, this.support);
+}*/

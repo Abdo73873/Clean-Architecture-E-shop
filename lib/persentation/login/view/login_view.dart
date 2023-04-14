@@ -70,6 +70,7 @@ class _LoginViewState extends State<LoginView> {
     margin: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
     color: Colors.white,
     height: double.infinity,
+    width: double.infinity,
     child: SingleChildScrollView(
       child: Form(
         key: _formKey,

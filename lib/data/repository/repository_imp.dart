@@ -34,4 +34,25 @@ import '../network/network_inf.dart';
     }
   }
 
+  @override
+  Future<Either<Failure, String>> forgetPassword(String email) async {
+    if(await _networkInf.isConnected){
+      try{
+        final response =await _remoteDataSource.forgetPassword(email);
+
+        print(response);
+        if(response.status==ApiInternalStatus.SCUSSUS){
+          return Right(response.toDomain());
+        }else{
+          return Left(Failure(ApiInternalStatus.FAILURE,response.message??ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        return Left(ErrorHandler.handle(error).failure);
+    }
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+
+    }
+  }
+
 }

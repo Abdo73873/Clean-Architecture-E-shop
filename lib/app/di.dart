@@ -8,7 +8,9 @@ import 'package:mena/data/network/dio_factory.dart';
 import 'package:mena/data/network/network_inf.dart';
 import 'package:mena/data/repository/repository_imp.dart';
 import 'package:mena/domain/repository/repository.dart';
+import 'package:mena/domain/usecase/forget_password_usecase.dart';
 import 'package:mena/domain/usecase/login_usecase.dart';
+import 'package:mena/persentation/forget_password/viewmodel/forget_passowrd_viewmodel.dart';
 import 'package:mena/persentation/login/view_model/login_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +32,13 @@ void initLoginModule() {
   if(!GetIt.I.isRegistered<LoginUseCase>()) {
     instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
     instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
+  }
+
+}
+void initForgetPasswordModule() {
+  if(!GetIt.I.isRegistered<ForgetPasswordUseCase>()) {
+    instance.registerFactory<ForgetPasswordUseCase>(() => ForgetPasswordUseCase(instance()));
+    instance.registerFactory<ForgetPasswordViewModel>(() => ForgetPasswordViewModel(instance()));
   }
 
 }

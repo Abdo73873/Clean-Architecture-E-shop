@@ -11,6 +11,7 @@ import 'package:mena/persentation/resources/values_manager.dart';
 enum StateRendererType {
   //POPUP STATE (Dialog)
   popupLoadingState,
+  popupSuccessState,
   popupErrorState,
 
   //full screen state (full screen)
@@ -47,6 +48,12 @@ class StateRenderer extends StatelessWidget {
         return _getPopUpDialog([
           _getAnimatedImage(JsonManager.loading),
           _getMessage('Loading...')
+        ]);
+      case StateRendererType.popupSuccessState:
+        return _getPopUpDialog([
+          _getAnimatedImage(JsonManager.success),
+          _getMessage(message),
+          _getRetryButton(context, AppStrings.ok),
         ]);
       case StateRendererType.popupErrorState:
         return _getPopUpDialog([
@@ -119,19 +126,23 @@ class StateRenderer extends StatelessWidget {
 
   Widget _getMessage(String message) => Text(
         message,
+        textAlign:TextAlign.center ,
         style:
             getRegularStyle(color: ColorManager.black, fontSize: FontSize.s18),
       );
 
   Widget _getRetryButton(context, String buttonTitle) => SizedBox(
       width: double.infinity,
-      child: ElevatedButton(
-          onPressed: () {
-            if (stateRendererType == StateRendererType.fullScreenErrorState) {
-              retryActionFunction.call();
-            } else {
-              Navigator.of(context).pop();
-            }
-          },
-          child: Text(buttonTitle)));
+      child: Padding(
+        padding: const EdgeInsets.only(top: AppPadding.p12),
+        child: ElevatedButton(
+            onPressed: () {
+              if (stateRendererType == StateRendererType.fullScreenErrorState) {
+                retryActionFunction.call();
+              } else {
+                Navigator.of(context).pop();
+              }
+            },
+            child: Text(buttonTitle)),
+      ));
 }

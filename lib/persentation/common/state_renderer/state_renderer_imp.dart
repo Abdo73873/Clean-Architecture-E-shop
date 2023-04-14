@@ -25,6 +25,19 @@ class LoadingState extends FlowState {
   StateRendererType getStateRendererTyp() => stateRendererType;
 }
 
+class SuccessState extends FlowState {
+  StateRendererType stateRendererType;
+  String message;
+
+  SuccessState({this.stateRendererType=StateRendererType.popupSuccessState, this.message=AppStrings.success});
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererTyp() => stateRendererType;
+}
+
 class ErrorState extends FlowState {
   StateRendererType stateRendererType;
   String message;
@@ -68,7 +81,21 @@ extension FlowStateExtantion on FlowState {
         if (getStateRendererTyp() == StateRendererType.popupLoadingState) {
           showPopup(context, getStateRendererTyp(), getMessage());
           return contentScreenWidget;
-        } else {
+        }
+        else {
+          return StateRenderer(
+            message: getMessage(),
+            stateRendererType: getStateRendererTyp(),
+            retryActionFunction: retryActionFunction,
+          );
+        }
+      case SuccessState:
+        dismissDialog(context);
+        if (getStateRendererTyp() == StateRendererType.popupSuccessState) {
+          showPopup(context, getStateRendererTyp(), getMessage());
+          return contentScreenWidget;
+        }
+        else {
           return StateRenderer(
             message: getMessage(),
             stateRendererType: getStateRendererTyp(),

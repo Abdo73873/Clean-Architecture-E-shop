@@ -47,12 +47,8 @@ Map<String, dynamic> _$ContactResponseToJson(ContactResponse instance) =>
 AuthenticationResponse _$AuthenticationResponseFromJson(
         Map<String, dynamic> json) =>
     AuthenticationResponse(
-      json['customer'] == null
-          ? null
-          : CustomerResponse.fromJson(json['customer'] as Map<String, dynamic>),
-      json['contacts'] == null
-          ? null
-          : ContactResponse.fromJson(json['contacts'] as Map<String, dynamic>),
+      json['customer'] == null ? null : CustomerResponse.fromJson(json['customer'] as Map<String, dynamic>),
+      json['contacts'] == null ? null : ContactResponse.fromJson(json['contacts'] as Map<String, dynamic>),
     )
       ..status = json['status'] as int?
       ..message = json['message'] as String?;
@@ -64,4 +60,17 @@ Map<String, dynamic> _$AuthenticationResponseToJson(
       'message': instance.message,
       'customer': instance.customer,
       'contacts': instance.contacts,
+    };
+
+ForgotPasswordResponse _$ForgotPasswordResponseFromJson(Map<String, dynamic> json) =>
+    ForgotPasswordResponse(json['support'] as String?,)
+      ..status = json['status'] as int?
+      ..message = json['message'] as String?;
+
+Map<String, dynamic> _$ForgotPasswordResponseToJson(
+    ForgotPasswordResponse instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'message': instance.message,
+      'support': instance.support,
     };

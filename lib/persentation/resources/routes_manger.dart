@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mena/app/di.dart';
-import 'package:mena/persentation/forget_password/forget_password_view.dart';
+import 'package:mena/persentation/forget_password/view/forget_password_view.dart';
 import 'package:mena/persentation/main/main_view.dart';
 import 'package:mena/persentation/onBoarding/view/onBoarding_view.dart';
 import 'package:mena/persentation/register/register_view.dart';
@@ -32,6 +32,7 @@ class RouteGenerator{
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (context) => const RegisterView(),);
       case Routes.forgotPasswordRoute:
+        initForgetPasswordModule();
         return MaterialPageRoute(builder: (context) => const ForgetPasswordView(),);
       case Routes.mainRoute:
         return MaterialPageRoute(builder: (context) => const MainView(),);

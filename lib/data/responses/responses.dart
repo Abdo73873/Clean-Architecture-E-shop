@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 part 'responses.g.dart';
@@ -53,4 +52,19 @@ class AuthenticationResponse extends BaseResponse{
 
   Map<String,dynamic> toJson()=>_$AuthenticationResponseToJson(this);
 
+}
+
+@JsonSerializable()
+class ForgotPasswordResponse extends BaseResponse {
+  @JsonKey(name: 'support')
+  String? support;
+
+  ForgotPasswordResponse(this.support);
+
+// toJson
+  Map<String, dynamic> toJson() => _$ForgotPasswordResponseToJson(this);
+
+//fromJson
+  factory ForgotPasswordResponse.fromJson(Map<String, dynamic> json) =>
+      _$ForgotPasswordResponseFromJson(json);
 }
