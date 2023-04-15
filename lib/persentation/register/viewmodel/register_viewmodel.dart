@@ -3,9 +3,12 @@ import 'dart:io';
 
 import 'package:mena/domain/usecase/register_usecase.dart';
 import 'package:mena/persentation/base/base_viewmodel.dart';
+import 'package:mena/persentation/common/freezed_data_classes.dart';
+import 'package:mena/persentation/common/state_renderer/state_renderer_imp.dart';
 import 'package:mena/persentation/resources/strings_manager.dart';
 
 import '../../../app/functions.dart';
+import '../../common/state_renderer/state_renderer.dart';
 
 class RegisterViewModel extends BaseViewModel
     with RegisterViewModelInputs, RegisterViewModelOutputs {
@@ -20,12 +23,24 @@ class RegisterViewModel extends BaseViewModel
       StreamController<File>.broadcast();
   StreamController areAllInputValidStreamController =
       StreamController<void>.broadcast();
+  StreamController isUserRegisteredSuccessfullyStreamController =
+  StreamController<bool>.broadcast();
+
   final RegisterUseCase _registerUseCase;
+  var registerObject = RegisterObject(
+      userName: '',
+      email: '',
+      countryCode: '',
+      mobile: '',
+      password: '',
+      profileImage: '');
 
   RegisterViewModel(this._registerUseCase);
 
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentState());
+  }
 
   @override
   void dispose() {
@@ -54,7 +69,123 @@ class RegisterViewModel extends BaseViewModel
   Sink get inputUsername => userNameStreamController.sink;
 
   @override
-  register() {}
+  Sink get inputAllInputValid => areAllInputValidStreamController.sink;
+
+  @override
+  setUserName(String userName) {
+    inputUsername.add(userName);
+
+    if (_isUserNameValid(userName)) {
+      registerObject = registerObject.copyWith(
+        userName: userName,
+      );
+    }
+    else {
+      registerObject = registerObject.copyWith(
+        userName: '',
+      );
+    }
+    validate();
+  }
+
+  @override
+  setEmail(String email) {
+    inputEmail.add(email);
+
+    if (isEmailValid(email)) {
+      registerObject = registerObject.copyWith(
+        email: email,
+      );
+    } else {
+      registerObject = registerObject.copyWith(
+        email: '',
+      );
+    }
+    validate();
+  }
+
+  @override
+  setMobile(String mobile) {
+    inputMobile.add(mobile);
+
+    if (_isMobileValid(mobile)) {
+      registerObject = registerObject.copyWith(
+        mobile: mobile,
+      );
+    } else {
+      registerObject = registerObject.copyWith(
+        mobile: '',
+      );
+    }
+    validate();
+  }
+
+  @override
+  setPassword(String password) {
+    inputPassword.add(password);
+
+    if (_isPasswordValid(password)) {
+      registerObject = registerObject.copyWith(
+        password: password,
+      );
+    } else {
+      registerObject = registerObject.copyWith(
+        password: '',
+      );
+    }
+    validate();
+  }
+
+  @override
+  setCountryCode(String code) {
+
+    if (code.isNotEmpty) {
+      registerObject = registerObject.copyWith(
+        countryCode: code,
+      );
+    } else {
+      registerObject = registerObject.copyWith(
+        countryCode: '',
+      );
+    }
+    validate();
+  }
+
+  @override
+  setProfileImage(File profileImage) {
+    inputProfileImage.add(profileImage);
+    if (profileImage.path.isNotEmpty) {
+      registerObject = registerObject.copyWith(
+        profileImage: profileImage.path,
+      );
+    } else {
+      registerObject = registerObject.copyWith(
+        profileImage: '',
+      );
+    }
+    validate();
+  }
+
+  @override
+  register() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popupLoadingState));
+    (await _registerUseCase.execute(RegisterUseCaseInput(
+            userName: registerObject.userName,
+            email: registerObject.email,
+            countryCode: registerObject.countryCode,
+            mobile:registerObject. mobile,
+            password: registerObject.password,
+            profileImage: registerObject.profileImage)))
+        .fold(
+            (failure) => {
+                  inputState.add(ErrorState(
+                      StateRendererType.popupErrorState, failure.message))
+                }, (data) {
+      isUserRegisteredSuccessfullyStreamController.add(true);
+      inputState.add(ContentState());
+    });
+  }
 
   //output
   @override
@@ -66,12 +197,12 @@ class RegisterViewModel extends BaseViewModel
       mobileStreamController.stream.map((mobile) => _isMobileValid(mobile));
 
   @override
-  Stream<bool> get outIsPasswordValid =>
-      passwordStreamController.stream.map((password) => _isPasswordValid(password));
+  Stream<bool> get outIsPasswordValid => passwordStreamController.stream
+      .map((password) => _isPasswordValid(password));
 
   @override
-  Stream<bool> get outIsProfileImageValid =>
-      profileImageStreamController.stream.map((image) => _isProfileImageValid(image));
+  Stream<File> get outIsProfileImageValid =>
+      profileImageStreamController.stream.map((file) => file);
 
   @override
   Stream<bool> get outIsUserNameValid => userNameStreamController.stream
@@ -91,20 +222,35 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outErrorUserName => outIsUserNameValid.map(
-          (isUserNameValid) => isUserNameValid ? null : AppStrings.userNameInvalid);
+      (isUserNameValid) => isUserNameValid ? null : AppStrings.userNameInvalid);
+
+  @override
+  Stream<bool> get outIAreAllInputValid =>
+      areAllInputValidStreamController.stream.map((event) => _areAllValid());
 
   //private functions
   bool _isUserNameValid(String userName) {
     return userName.length >= 8;
   }
+
   bool _isPasswordValid(String userName) {
-    return userName.length >= 8;
+    return userName.length >= 6;
   }
+
   bool _isMobileValid(String userName) {
-    return userName.length >= 8;
+    return userName.length >= 11;
   }
- bool _isProfileImageValid(File image)  {
-    return image.existsSync();
+
+  bool _areAllValid() {
+    return registerObject.userName.isNotEmpty &&
+        registerObject.email.isNotEmpty &&
+        registerObject.mobile.isNotEmpty &&
+        registerObject.password.isNotEmpty &&
+        registerObject.profileImage.isNotEmpty;
+  }
+
+  void validate() {
+    inputAllInputValid.add(null);
   }
 }
 
@@ -118,6 +264,20 @@ abstract class RegisterViewModelInputs {
   Sink get inputProfileImage;
 
   Sink get inputPassword;
+
+  Sink get inputAllInputValid;
+
+  setUserName(String userName);
+
+  setEmail(String email);
+
+  setMobile(String mobile);
+
+  setPassword(String password);
+
+  setCountryCode(String code);
+
+  setProfileImage(File profileImage);
 
   register();
 }
@@ -139,5 +299,7 @@ abstract class RegisterViewModelOutputs {
 
   Stream<String?> get outErrorPassword;
 
-  Stream<bool> get outIsProfileImageValid;
+  Stream<File> get outIsProfileImageValid;
+
+  Stream<bool> get outIAreAllInputValid;
 }

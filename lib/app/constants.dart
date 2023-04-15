@@ -4,4 +4,5 @@ class Constants{
   static const int zero=0;
   static const int apiTimeOut=60;
   static const String apiToken="Send token here";
+  static const String defaultCountry="+20";
 }

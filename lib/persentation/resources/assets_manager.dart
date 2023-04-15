@@ -14,6 +14,7 @@ class ImagesManager{
   static const String hollowCircleIc='$imagePath/hollow_cirlce_ic.svg';
   static const String solidCircleIc='$imagePath/solid_circle_ic.svg';
   static const String nviteFriendsIc='$imagePath/nvite_friends_ic.svg';
+  static const String camera='$imagePath/photo_camera_ic.svg';
 
 }
 class JsonManager{
