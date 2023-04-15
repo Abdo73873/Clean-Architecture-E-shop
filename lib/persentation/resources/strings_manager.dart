@@ -36,4 +36,8 @@ class AppStrings {
   static const String mobileInvalid="Mobile Number should be at least 11 digits";
   static const String photoCamera="Photo from Camera";
   static const String photoGallery="photo from Gallery";
+  static const String home="Home";
+  static const String search="Search";
+  static const String notification="Notification";
+  static const String settings="Settings";
 }
