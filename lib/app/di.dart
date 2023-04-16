@@ -10,10 +10,12 @@ import 'package:mena/data/network/network_inf.dart';
 import 'package:mena/data/repository/repository_imp.dart';
 import 'package:mena/domain/repository/repository.dart';
 import 'package:mena/domain/usecase/forget_password_usecase.dart';
+import 'package:mena/domain/usecase/home_data_usecase.dart';
 import 'package:mena/domain/usecase/login_usecase.dart';
 import 'package:mena/domain/usecase/register_usecase.dart';
 import 'package:mena/persentation/forget_password/viewmodel/forget_passowrd_viewmodel.dart';
 import 'package:mena/persentation/login/view_model/login_viewmodel.dart';
+import 'package:mena/persentation/main/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:mena/persentation/register/viewmodel/register_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,6 +52,13 @@ void initRegisterModule() {
     instance.registerFactory<RegisterUseCase>(() => RegisterUseCase(instance()));
     instance.registerFactory<RegisterViewModel>(() => RegisterViewModel(instance()));
     instance.registerFactory<ImagePicker>(() =>ImagePicker() );
+  }
+
+}
+void initHomeModule() {
+  if(!GetIt.I.isRegistered<HomeDataUseCase>()) {
+    instance.registerFactory<HomeDataUseCase>(() => HomeDataUseCase(instance()));
+    instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
   }
 
 }

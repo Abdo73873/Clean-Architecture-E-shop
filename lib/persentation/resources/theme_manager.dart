@@ -52,10 +52,11 @@ ThemeData getAppTheme() {
       titleMedium:getMediumStyle(color: ColorManager.primary,fontSize:FontSize.s14 ),
       titleSmall:getRegularStyle(color: ColorManager.white,fontSize:FontSize.s16 ),
       titleLarge:getMediumStyle(color: ColorManager.primary,fontSize:FontSize.s16 ),
-      bodySmall: getRegularStyle(color: ColorManager.gray,),
+      bodySmall: getRegularStyle(color: ColorManager.gray,fontSize: FontSize.s12),
       bodyMedium: getRegularStyle(color: ColorManager.darkGray,fontSize: FontSize.s17),
       displayLarge: getLightStyle(color: ColorManager.darkGray,fontSize: FontSize.s16),
-      
+      labelSmall: getBoldStyle(color: ColorManager.primary,fontSize: FontSize.s12),
+
     ),
     //Input decoration Theme
     inputDecorationTheme: InputDecorationTheme(

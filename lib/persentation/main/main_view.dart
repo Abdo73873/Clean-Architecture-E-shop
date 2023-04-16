@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mena/persentation/main/pages/home_page.dart';
-import 'package:mena/persentation/main/pages/notification_page.dart';
-import 'package:mena/persentation/main/pages/search_page.dart';
-import 'package:mena/persentation/main/pages/settengs_page.dart';
+import 'package:mena/persentation/main/pages/home/view/home_page.dart';
+import 'package:mena/persentation/main/pages/notification/view/notification_page.dart';
+import 'package:mena/persentation/main/pages/search/view/search_page.dart';
+import 'package:mena/persentation/main/pages/settings/view/settengs_page.dart';
 import 'package:mena/persentation/resources/color_manager.dart';
 import 'package:mena/persentation/resources/routes_manger.dart';
 import 'package:mena/persentation/resources/strings_manager.dart';

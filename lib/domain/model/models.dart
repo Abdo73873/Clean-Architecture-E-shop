@@ -36,11 +36,40 @@ class Authentication {
 
 
 }
-/*
-class ForgetPassword{
+class Service{
+  int id;
+  String title;
+  String image;
+  Service(this.id, this.title, this.image);
+
+}
+class BannerAd{
+  int id;
+  String title;
+  String link;
+  String image;
+  BannerAd(this.id, this.title, this.image,this.link);
+
+}
+class Store{
+  int id;
+  String title;
+  String image;
+  Store(this.id, this.title, this.image);
+
+}
+class HomeData{
+  List<Service> services;
+  List<BannerAd> banners;
+  List<Store> stores;
+
+  HomeData(this.services, this.banners, this.stores);
+}
+
+class HomeObject{
   int status;
   String message;
-  String support;
+  HomeData data;
 
-  ForgetPassword(this.status, this.message, this.support);
-}*/
+  HomeObject(this.status, this.message, this.data);
+}

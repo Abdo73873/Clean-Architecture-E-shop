@@ -25,4 +25,7 @@ Future<AuthenticationResponse> register(
     @Field("password") String password,
     @Field("profile_image") String profileImage,
     );
+
+@GET('/home')
+Future<HomeResponse> getHomeData();
 }

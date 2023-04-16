@@ -74,4 +74,26 @@ import '../network/network_inf.dart';
    }
   }
 
+  @override
+  Future<Either<Failure, HomeObject>> getHomeData() async {
+    if(await _networkInf.isConnected){
+      try{
+        final response=await _remoteDataSource.getHomeData();
+        if(response.status==ApiInternalStatus.SCUSSUS){
+          return Right(response.toDomain());
+        }else{
+          return Left(Failure(ApiInternalStatus.FAILURE,ResponseMessage.DEFAULT));
+        }
+      }catch(error){
+        print(error);
+        print('=============================');
+        return Left(ErrorHandler.handle(error).failure);
+      }
+
+    }else{
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+
+    }
+  }
+
 }
