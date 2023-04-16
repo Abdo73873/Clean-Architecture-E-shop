@@ -47,33 +47,28 @@ class _HomePageState extends State<HomePage> {
           })??_getContentWidget();
         });
   }
+
   Widget _getContentWidget()=>SingleChildScrollView(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _getBannersCarousel(),
-        _section(AppStrings.services),
-        _getServices(),
-        _section(AppStrings.stores),
-        _getStores(),
-      ],
+    child: StreamBuilder<HomeObject>(
+      stream: _viewModel.outputHome,
+      builder: (context, snapshot) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _getBannersWidget(snapshot.data?.data.banners??[]),
+            _section(AppStrings.services),
+            _getServicesWidget(snapshot.data?.data.services??[]),
+            _section(AppStrings.stores),
+            _getStoresWidget(snapshot.data?.data.stores??[]),
+          ],
+        );
+      }
     ),
   );
   Widget _section(String title)=> Padding(
     padding: const EdgeInsetsDirectional.only(top: AppSize.s16,start: AppSize.s8,bottom: AppSize.s4),
     child: Text(title,style: Theme.of(context).textTheme.labelSmall,),
   );
-  Widget _getBannersCarousel()=>StreamBuilder<List<BannerAd>>(
-    stream: _viewModel.outputBanners,
-      builder:(context, snapshot) => _getBannersWidget(snapshot.data??[]) );
-
-  Widget _getServices()=>StreamBuilder<List<Service>>(
-      stream: _viewModel.outputServices,
-      builder:(context, snapshot) => _getServicesWidget(snapshot.data??[]) );
-
-  Widget _getStores()=>StreamBuilder<List<Store>>(
-      stream: _viewModel.outputStores,
-      builder:(context, snapshot) => _getStoresWidget(snapshot.data??[]) );
 
   Widget _getBannersWidget(List<BannerAd> banners) {
     return CarouselSlider(

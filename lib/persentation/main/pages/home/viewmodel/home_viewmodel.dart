@@ -9,9 +9,8 @@ import 'package:mena/persentation/common/state_renderer/state_renderer_imp.dart'
 import 'package:rxdart/rxdart.dart';
 
 class HomeViewModel extends BaseViewModel with HomeViewModelInputs,HomeViewModelOutputs{
-  final StreamController _bannerStreamController= BehaviorSubject<List<BannerAd>>();
-  final StreamController _servicesStreamController= BehaviorSubject<List<Service>>();
-  final StreamController _storesStreamController= BehaviorSubject<List<Store>>();
+  final StreamController _homeStreamController= BehaviorSubject<HomeObject>();
+
 
   final HomeDataUseCase  _homeDataUseCase;
 
@@ -23,29 +22,9 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInputs,HomeViewModel
   }
   @override
   void dispose() {
-    _bannerStreamController.close();
-    _servicesStreamController.close();
-    _storesStreamController.close();
+    _homeStreamController.close();
     super.dispose();
   }
-
-  @override
-  Sink get inputBanners => _bannerStreamController.sink;
-
-  @override
-  Sink get inputServices => _servicesStreamController.sink;
-
-  @override
-  Sink get inputStores =>_storesStreamController.sink;
-
-  @override
-  Stream<List<BannerAd>> get outputBanners => _bannerStreamController.stream.map((banners) => banners);
-
-  @override
-  Stream<List<Service>> get outputServices =>  _servicesStreamController.stream.map((services) => services);
-
-  @override
-  Stream<List<Store>> get outputStores => _storesStreamController.stream.map((stores) => stores);
 
   _getHomeData() async {
    inputState.add( LoadingState(stateRendererType: StateRendererType.fullScreenLoadingState,));
@@ -53,19 +32,21 @@ class HomeViewModel extends BaseViewModel with HomeViewModelInputs,HomeViewModel
       inputState.add(ErrorState(StateRendererType.fullScreenErrorState, failure.message));
     }, (homeObject){
       inputState.add(ContentState());
-      inputBanners.add(homeObject.data.banners);
-      inputServices.add(homeObject.data.services);
-      inputStores.add(homeObject.data.stores);
+      inputHome.add(homeObject);
     });
   }
+
+  @override
+  Sink get inputHome => _homeStreamController.sink;
+
+  @override
+  Stream<HomeObject> get outputHome => _homeStreamController.stream.map((homeObject) =>homeObject );
 }
 abstract class HomeViewModelInputs{
-  Sink get inputBanners;
-  Sink get inputServices;
-  Sink get inputStores;
+  Sink get inputHome;
+
 }
 abstract class HomeViewModelOutputs{
-  Stream<List<BannerAd>> get outputBanners;
-  Stream<List<Service>> get outputServices;
-  Stream<List<Store>> get outputStores;
+  Stream<HomeObject> get outputHome;
+
 }
