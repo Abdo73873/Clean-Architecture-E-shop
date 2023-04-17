@@ -28,4 +28,8 @@ Future<AuthenticationResponse> register(
 
 @GET('/home')
 Future<HomeResponse> getHomeData();
+
+@GET('/storeDetails/1')
+Future<StoreDetailsResponse> getStoreDetailsData();
+
 }

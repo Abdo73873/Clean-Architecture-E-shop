@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mena/app/app_prefs.dart';
+import 'package:mena/data/data_source/local_data_source.dart';
 import 'package:mena/data/data_source/remote_data_source.dart';
 import 'package:mena/data/network/add_api.dart';
 import 'package:mena/data/network/dio_factory.dart';
@@ -13,10 +14,12 @@ import 'package:mena/domain/usecase/forget_password_usecase.dart';
 import 'package:mena/domain/usecase/home_data_usecase.dart';
 import 'package:mena/domain/usecase/login_usecase.dart';
 import 'package:mena/domain/usecase/register_usecase.dart';
+import 'package:mena/domain/usecase/store_details.dart';
 import 'package:mena/persentation/forget_password/viewmodel/forget_passowrd_viewmodel.dart';
 import 'package:mena/persentation/login/view_model/login_viewmodel.dart';
 import 'package:mena/persentation/main/pages/home/viewmodel/home_viewmodel.dart';
 import 'package:mena/persentation/register/viewmodel/register_viewmodel.dart';
+import 'package:mena/persentation/store_details/viewmodel/store_details_viewmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final instance =GetIt.instance;
@@ -30,7 +33,8 @@ Future<void> initAppModule() async{
   Dio dio=await instance<DioFactory>().getDio();
   instance.registerLazySingleton<AppServicesClient>(() =>AppServicesClient(dio));
   instance.registerLazySingleton<RemoteDataSource>(() =>RemoteDataSourceImplementation(instance()));
-  instance.registerLazySingleton<Repository>(() =>RepositoryImp(instance(), instance()));
+  instance.registerLazySingleton<LocalDataSource>(() =>LocalDataSourceImp());
+  instance.registerLazySingleton<Repository>(() =>RepositoryImp(instance(), instance(),instance()));
 
 }
 void initLoginModule() {
@@ -59,6 +63,13 @@ void initHomeModule() {
   if(!GetIt.I.isRegistered<HomeDataUseCase>()) {
     instance.registerFactory<HomeDataUseCase>(() => HomeDataUseCase(instance()));
     instance.registerFactory<HomeViewModel>(() => HomeViewModel(instance()));
+  }
+
+}
+void initStoreDetailsModule() {
+  if(!GetIt.I.isRegistered<StoreDetailsUseCase>()) {
+    instance.registerFactory<StoreDetailsUseCase>(() => StoreDetailsUseCase(instance()));
+    instance.registerFactory<StoreDetailsViewModel>(() => StoreDetailsViewModel(instance()));
   }
 
 }

@@ -11,7 +11,7 @@ import '../../resources/strings_manager.dart';
 class OnBoardingViewModel extends BaseViewModel
     with OnBoardingViewModelInputs,OnBoardingViewModelOutputs{
   //stream controller outputs
-final StreamController _streamController=StreamController<SliderViewObject>();
+final StreamController _streamController=StreamController<SliderViewObject>.broadcast();
 late final List<SliderObject> _list;
 final PageController pageController = PageController();
 
@@ -66,11 +66,9 @@ final PageController pageController = PageController();
         curve: Curves.bounceInOut);
   }
   @override
-  // TODO: implement inputSliderViewObject
   Sink get inputSliderViewObject => _streamController.sink;
 
   @override
-  // TODO: implement outputSliderViewObject
   Stream<SliderViewObject> get outputSliderViewObject => _streamController.stream.map((sliderViewObject) =>sliderViewObject );
 
   //onBoarding private function

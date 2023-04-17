@@ -68,28 +68,44 @@ extension BannerResponseMapper on BannerResponse? {
 
 extension HomeResponseMapper on HomeResponse? {
   HomeObject toDomain() {
-    List<Service> services = (this?.data?.services?.map((serviceResponse) =>
-        serviceResponse.toDomain())
-        ?? const Iterable.empty())
+    List<Service> services = (this
+                ?.data
+                ?.services
+                ?.map((serviceResponse) => serviceResponse.toDomain()) ??
+            const Iterable.empty())
         .cast<Service>()
         .toList();
-    List<BannerAd> banners = (this?.data?.banners?.map((bannersResponse) =>
-        bannersResponse.toDomain())
-        ?? const Iterable.empty())
+    List<BannerAd> banners = (this
+                ?.data
+                ?.banners
+                ?.map((bannersResponse) => bannersResponse.toDomain()) ??
+            const Iterable.empty())
         .cast<BannerAd>()
         .toList();
-    List<Store> stores = (this?.data?.stores?.map((storesResponse) =>
-        storesResponse.toDomain())
-        ?? const Iterable.empty())
+    List<Store> stores = (this
+                ?.data
+                ?.stores
+                ?.map((storesResponse) => storesResponse.toDomain()) ??
+            const Iterable.empty())
         .cast<Store>()
         .toList();
 
     HomeData data = HomeData(services, banners, stores);
 
-    return HomeObject(
-        this?.status.orZero() ?? Constants.zero,
-        this?.message.orEmpty() ?? Constants.empty,
-        data
+    return HomeObject(this?.status.orZero() ?? Constants.zero,
+        this?.message.orEmpty() ?? Constants.empty, data);
+  }
+}
+
+extension StoreDetailsResponseMapper on StoreDetailsResponse? {
+  StoreDetails toDomain() {
+    return StoreDetails(
+        this?.id.orZero() ?? Constants.zero,
+        this?.title.orEmpty() ?? Constants.empty,
+        this?.image.orEmpty() ?? Constants.empty,
+        this?.details.orEmpty() ?? Constants.empty,
+        this?.services.orEmpty() ?? Constants.empty,
+        this?.about.orEmpty() ?? Constants.empty,
     );
   }
 }

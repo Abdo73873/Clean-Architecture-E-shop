@@ -31,14 +31,13 @@ DioFactory(this._appPreferences);
       sendTimeout: const Duration(seconds: Constants.apiTimeOut),
     );
     if(!kReleaseMode){
-      dio.interceptors.add(PrettyDioLogger(
+      /*dio.interceptors.add(PrettyDioLogger(
         requestHeader:true,
         requestBody: true,
         responseHeader: true,
         error: true,
         responseBody: true,
-        request: true,
-      ));
+      ));*/
     }
     return dio;
   }
