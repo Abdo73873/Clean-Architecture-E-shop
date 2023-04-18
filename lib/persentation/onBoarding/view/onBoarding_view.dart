@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +8,6 @@ import 'package:mena/domain/model/models.dart';
 import 'package:mena/persentation/onBoarding/viewmodel/onBoarding_viewmodel.dart';
 import 'package:mena/persentation/resources/assets_manager.dart';
 import 'package:mena/persentation/resources/color_manager.dart';
-import 'package:mena/persentation/resources/constant_manager.dart';
 import 'package:mena/persentation/resources/strings_manager.dart';
 import 'package:mena/persentation/resources/values_manager.dart';
 
@@ -74,7 +74,7 @@ if(sliderViewObject==null){
                 Navigator.pushReplacementNamed(context, Routes.loginRoute);
               },
               child: Text(
-                AppStrings.skip,
+                AppStrings.skip.tr(),
                 style: Theme.of(context).textTheme.labelLarge,
               ),
             ),

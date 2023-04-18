@@ -22,6 +22,7 @@ ThemeData getAppTheme() {
   appBarTheme:  AppBarTheme(
     color: ColorManager.primary,
     elevation: AppSize.s4,
+    centerTitle: true,
     shadowColor: ColorManager.primaryLight,
     titleTextStyle:getRegularStyle(
         fontSize:16.0,
@@ -51,6 +52,7 @@ ThemeData getAppTheme() {
       labelLarge: getSemiBoldStyle(color: ColorManager.primary,fontSize: FontSize.s16),
       titleMedium:getMediumStyle(color: ColorManager.primary,fontSize:FontSize.s14 ),
       titleSmall:getRegularStyle(color: ColorManager.white,fontSize:FontSize.s16 ),
+      headlineSmall:getRegularStyle(color: ColorManager.gray,fontSize:FontSize.s16 ),
       titleLarge:getMediumStyle(color: ColorManager.primary,fontSize:FontSize.s16 ),
       bodySmall: getRegularStyle(color: ColorManager.gray,fontSize: FontSize.s12),
       bodyMedium: getRegularStyle(color: ColorManager.darkGray,fontSize: FontSize.s17),

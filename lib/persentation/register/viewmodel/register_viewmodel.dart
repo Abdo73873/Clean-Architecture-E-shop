@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:mena/domain/usecase/register_usecase.dart';
 import 'package:mena/persentation/base/base_viewmodel.dart';
 import 'package:mena/persentation/common/freezed_data_classes.dart';
@@ -210,19 +211,19 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   Stream<String?> get outErrorEmail => outIsEmailValid
-      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailInvalid);
+      .map((isEmailValid) => isEmailValid ? null : AppStrings.emailError.tr());
 
   @override
   Stream<String?> get outErrorMobile => outIsMobileValid
-      .map((isMobileValid) => isMobileValid ? null : AppStrings.mobileInvalid);
+      .map((isMobileValid) => isMobileValid ? null : AppStrings.mobileNumberInvalid.tr());
 
   @override
   Stream<String?> get outErrorPassword => outIsPasswordValid.map(
-      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInvalid);
+      (isPasswordValid) => isPasswordValid ? null : AppStrings.passwordInvalid.tr());
 
   @override
   Stream<String?> get outErrorUserName => outIsUserNameValid.map(
-      (isUserNameValid) => isUserNameValid ? null : AppStrings.userNameInvalid);
+      (isUserNameValid) => isUserNameValid ? null : AppStrings.userNameInvalid.tr());
 
   @override
   Stream<bool> get outIAreAllInputValid =>

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mena/app/di.dart';
 import 'package:mena/persentation/common/state_renderer/state_renderer.dart';
@@ -78,11 +79,11 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: AppStrings.email,
-                      labelText: AppStrings.email,
+                      hintText: AppStrings.email.tr(),
+                      labelText: AppStrings.email.tr(),
                       errorText: (snapshot.data ?? true)
                           ? null
-                          : AppStrings.emailInvalid,
+                          : AppStrings.emailError.tr(),
                     ),
                   ),
                 ),
@@ -99,7 +100,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                               _viewModel.forgetPassword();
                             }
                           : null,
-                      child: const Text(AppStrings.send),
+                      child:  Text(AppStrings.resetPassword.tr()),
                     ),
                   ),
                 ),
@@ -110,7 +111,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   onPressed:(){
                     Navigator.pushReplacementNamed(context, Routes.registerRoute);
                   },
-                  child:  Text(AppStrings.registerText,
+                  child:  Text(AppStrings.registerText.tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),),
               ],

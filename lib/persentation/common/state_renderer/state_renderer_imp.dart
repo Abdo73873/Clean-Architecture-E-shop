@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mena/persentation/common/state_renderer/state_renderer.dart';
@@ -19,7 +20,7 @@ class LoadingState extends FlowState {
       {required this.stateRendererType, this.message = AppStrings.loading});
 
   @override
-  String getMessage() => message;
+  String getMessage() => message.tr();
 
   @override
   StateRendererType getStateRendererTyp() => stateRendererType;
@@ -32,7 +33,7 @@ class SuccessState extends FlowState {
   SuccessState({this.stateRendererType=StateRendererType.popupSuccessState, this.message=AppStrings.success});
 
   @override
-  String getMessage() => message;
+  String getMessage() => message.tr();
 
   @override
   StateRendererType getStateRendererTyp() => stateRendererType;
@@ -45,7 +46,7 @@ class ErrorState extends FlowState {
   ErrorState(this.stateRendererType, this.message);
 
   @override
-  String getMessage() => message;
+  String getMessage() => message.tr();
 
   @override
   StateRendererType getStateRendererTyp() => stateRendererType;
@@ -65,7 +66,7 @@ class EmptyState extends FlowState {
   EmptyState(this.message);
 
   @override
-  String getMessage() => message;
+  String getMessage() => message.tr();
 
   @override
   StateRendererType getStateRendererTyp() =>

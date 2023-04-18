@@ -11,6 +11,6 @@ class NotificationPage extends StatefulWidget {
 class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
-    return const Text(AppStrings.notification);
+    return const Text(AppStrings.notifications);
   }
 }

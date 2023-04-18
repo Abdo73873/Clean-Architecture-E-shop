@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mena/app/constants.dart';
 import 'package:mena/data/network/failure.dart';
 import 'package:mena/persentation/resources/assets_manager.dart';
 import 'package:mena/persentation/resources/color_manager.dart';
@@ -32,7 +34,7 @@ class StateRenderer extends StatelessWidget {
   StateRenderer({
     required this.stateRendererType,
     this.title = AppStrings.loading,
-    this.message = '',
+    this.message = Constants.empty,
     required this.retryActionFunction,
     super.key,
   });
@@ -47,19 +49,19 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.popupLoadingState:
         return _getPopUpDialog([
           _getAnimatedImage(JsonManager.loading),
-          _getMessage('Loading...')
+          _getMessage(AppStrings.loading.tr())
         ]);
       case StateRendererType.popupSuccessState:
         return _getPopUpDialog([
           _getAnimatedImage(JsonManager.success),
           _getMessage(message),
-          _getRetryButton(context, AppStrings.ok),
+          _getRetryButton(context, AppStrings.ok.tr()),
         ]);
       case StateRendererType.popupErrorState:
         return _getPopUpDialog([
           _getAnimatedImage(JsonManager.error),
           _getMessage(message),
-          _getRetryButton(context, AppStrings.retryAgain),
+          _getRetryButton(context, AppStrings.retryAgain.tr()),
         ]);
       case StateRendererType.fullScreenLoadingState:
         return _getItemsColumn([
@@ -70,7 +72,7 @@ class StateRenderer extends StatelessWidget {
         return _getItemsColumn([
           _getAnimatedImage(JsonManager.error),
           _getMessage(message),
-          _getRetryButton(context, AppStrings.retryAgain),
+          _getRetryButton(context, AppStrings.retryAgain.tr()),
         ]);
       case StateRendererType.fullScreenEmptyState:
         return _getItemsColumn([

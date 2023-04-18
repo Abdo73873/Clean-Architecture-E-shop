@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mena/app/di.dart';
@@ -86,11 +87,11 @@ class _LoginViewState extends State<LoginView> {
                 keyboardType: TextInputType.emailAddress,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  hintText: AppStrings.email,
-                  labelText: AppStrings.email,
+                  hintText: AppStrings.email.tr(),
+                  labelText: AppStrings.email.tr(),
                   errorText: (snapshot.data ?? true)
                       ? null
-                      : AppStrings.emailInvalid,
+                      : AppStrings.emailError.tr(),
                 ),
               ),
             ),
@@ -103,11 +104,11 @@ class _LoginViewState extends State<LoginView> {
                 keyboardType: TextInputType.visiblePassword,
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  hintText: AppStrings.password,
-                  labelText: AppStrings.password,
+                  hintText: AppStrings.password.tr(),
+                  labelText: AppStrings.password.tr(),
                   errorText: (snapshot.data ?? true)
                       ? null
-                      : AppStrings.passwordError,
+                      : AppStrings.passwordError.tr(),
                 ),
               ),
             ),
@@ -124,7 +125,7 @@ class _LoginViewState extends State<LoginView> {
                     _viewModel.login();
                   }
                       : null,
-                  child: const Text(AppStrings.login),
+                  child:  Text(AppStrings.login.tr()),
                 ),
               ),
             ),
@@ -139,14 +140,14 @@ class _LoginViewState extends State<LoginView> {
                     Navigator.pushNamed(context, Routes.forgotPasswordRoute);
 
                   },
-                  child:  Text(AppStrings.forgetPassword,
+                  child:  Text(AppStrings.forgetPassword.tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),),
                 TextButton(
                   onPressed:(){
                     Navigator.pushReplacementNamed(context, Routes.registerRoute);
                   },
-                  child:  Text(AppStrings.registerText,
+                  child:  Text(AppStrings.registerText.tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),),
               ],

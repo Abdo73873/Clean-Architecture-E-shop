@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mena/domain/model/models.dart';
 import 'package:mena/persentation/base/base_viewmodel.dart';
@@ -73,14 +74,14 @@ final PageController pageController = PageController();
 
   //onBoarding private function
 List<SliderObject> _getSliderData() => [
-  SliderObject(AppStrings.onBoardingTitle1,
-      AppStrings.onBoardingSubTitle1, ImagesManager.onBoardingLogo1),
-  SliderObject(AppStrings.onBoardingTitle2,
-      AppStrings.onBoardingSubTitle2, ImagesManager.onBoardingLogo2),
-  SliderObject(AppStrings.onBoardingTitle3,
-      AppStrings.onBoardingSubTitle3, ImagesManager.onBoardingLogo3),
-  SliderObject(AppStrings.onBoardingTitle4,
-      AppStrings.onBoardingSubTitle4, ImagesManager.onBoardingLogo4),
+  SliderObject(AppStrings.onBoardingTitle1.tr(),
+      AppStrings.onBoardingSubTitle1.tr(), ImagesManager.onBoardingLogo1),
+  SliderObject(AppStrings.onBoardingTitle2.tr(),
+      AppStrings.onBoardingSubTitle2.tr(), ImagesManager.onBoardingLogo2),
+  SliderObject(AppStrings.onBoardingTitle3.tr(),
+      AppStrings.onBoardingSubTitle3.tr(), ImagesManager.onBoardingLogo3),
+  SliderObject(AppStrings.onBoardingTitle4.tr(),
+      AppStrings.onBoardingSubTitle4.tr(), ImagesManager.onBoardingLogo4),
 ];
 void _postDataToView(){
   inputSliderViewObject.add(SliderViewObject(_list[_currentIndex], _list.length, _currentIndex));

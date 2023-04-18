@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mena/app/di.dart';
 import 'package:mena/domain/model/models.dart';
 import 'package:mena/persentation/common/state_renderer/state_renderer_imp.dart';
@@ -38,13 +40,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(context, _getContentWidget(),
-              () {
-            _viewModel.start();
-          })??_getContentWidget();
+                  () {
+                _viewModel.start();
+              })??_getContentWidget();
         });
   }
 
@@ -56,9 +60,9 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _getBannersWidget(snapshot.data?.data.banners??[]),
-            _section(AppStrings.services),
+            _section(AppStrings.services.tr()),
             _getServicesWidget(snapshot.data?.data.services??[]),
-            _section(AppStrings.stores),
+            _section(AppStrings.stores.tr()),
             _getStoresWidget(snapshot.data?.data.stores??[]),
           ],
         );
